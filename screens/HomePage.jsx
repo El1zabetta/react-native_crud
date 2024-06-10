@@ -1,0 +1,61 @@
+import React, { useContext } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { productsContext } from "../context/ProductsContext";
+import ProductCard from "../components/ProductCard";
+
+export default function HomePage({ navigation }) {
+  const { products, getProducts } = useContext(productsContext);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  return (
+    <View>
+      <View style={styles.addBtnContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("add-form")}
+          style={goToAddFormBtn}
+        >
+          <Text style={styles.goToAddFormBtn.text}>Добавить продукт</Text>
+        </TouchableOpacity>
+
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal
+          contentInset={{ bottom: 200 }}
+          contentContainerStyle={styles.cardParent}
+        >
+          {products.map((item) => (
+            <ProductCard key={item.id} oneProduct={item} />
+          ))}
+        </ScrollView>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  goToAddFormBtn: {
+    backgroundColor: "orange",
+    paddingHorizontal: 35,
+    paddingVertical: 15,
+    maxWidth: 200,
+    borderRadius: 20,
+    text: {
+      color: "white",
+      fontSize: 20,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+  },
+  addBtnContainer: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  cardParent: {
+    gap: 20,
+    marginTop: 50,
+    flex: 1,
+  },
+});
