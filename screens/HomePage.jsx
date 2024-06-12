@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { productsContext } from "../context/ProductsContext";
 import ProductCard from "../components/ProductCard";
 
@@ -11,7 +18,7 @@ export default function HomePage({ navigation }) {
   }, []);
 
   return (
-    <View>
+    <SafeAreaView>
       <View style={styles.addBtnContainer}>
         <TouchableOpacity
           onPress={() => navigation.navigate("add-form")}
@@ -21,6 +28,9 @@ export default function HomePage({ navigation }) {
         </TouchableOpacity>
 
         <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
           showsVerticalScrollIndicator={false}
           horizontal
           contentInset={{ bottom: 200 }}
@@ -31,7 +41,7 @@ export default function HomePage({ navigation }) {
           ))}
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

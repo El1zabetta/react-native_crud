@@ -4,7 +4,7 @@ import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export const productsContext = createContext();
 
-const API = "http://192.168.0.47:8000/products";
+const API = "http://192.168.0.57:8000/products";
 
 const INIT_STATE = {
   products: [],
